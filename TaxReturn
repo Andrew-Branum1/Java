@@ -1,0 +1,219 @@
+package application;
+import java.util.*;
+public class TaxReturn {
+	private String social;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String mstatus;
+	private double annualIncome;
+	private static double tax;//instance variables
+	   
+	   public TaxReturn()//constructor
+	   {
+	       social="";
+	       firstName="";
+	       lastName="";
+	       address="";
+	       city="";
+	       state="";
+	       zip="";
+	       mstatus="";
+	       annualIncome=0;
+	       tax=0;
+	   }
+
+
+
+	   public String getSocial()//get / set methods for all variables
+	   {
+	       return social;
+	   }
+	   public void setSocial(String social)
+	   {
+	       this.social = social;
+	   }
+	   public String getFirstName()
+	   {
+	       return firstName;
+	   }
+	   public void setFirstName(String firstName)
+	   {
+	       this.firstName = firstName;
+	   }
+	   public String getLastName()
+	   {
+	       return lastName;
+	   }
+	   public void setLastName(String lastName)
+	   {
+	       this.lastName = lastName;
+	   }
+	   public String getAddress()
+	   {
+	       return address;
+	   }
+	   public void setAddress(String address)
+	   {
+	       this.address = address;
+	   }
+	   public String getCity()
+	   {
+	       return city;
+	   }
+	   public void setCity(String city)
+	   {
+	       this.city = city;
+	   }
+	   public String getState()
+	   {
+	       return state;
+	   }
+	   public void setState(String state)
+	   {
+	       this.state = state;
+	   }
+	   public String getZip()
+	   {
+	       return zip;
+	   }
+	   public void setZip(String zip)
+	   {
+	       this.zip = zip;
+	   }
+	   public String getMstatus()
+	   {
+	       return mstatus;
+	   }
+	   public void setMstatus(String mstatus)
+	   {
+	       this.mstatus = mstatus;
+	   }
+	   public double getAnnualIncome()
+	   {
+	       return annualIncome;
+	   }
+
+	//Set annual income, calculate tax rate, and set tax value
+	   public void setAnnualIncome(double annualIncome)
+	   {
+	       double taxPercent=0;
+	       this.annualIncome = annualIncome;
+	       if(annualIncome<=20000 ){
+	           if(mstatus.equalsIgnoreCase("single") || mstatus.equalsIgnoreCase("married")) {
+	        	   
+	               taxPercent=0;
+	           }
+	       }
+	       else if(annualIncome>20000 && annualIncome<=50000 ){
+	           if(mstatus.equalsIgnoreCase("single")) {
+	               taxPercent=0.15;
+	           }
+	           else {
+	               taxPercent=0.10;
+	           }
+	       }
+	       else if(annualIncome>50000&& annualIncome<=100000 ){
+	           if(mstatus.equalsIgnoreCase("single")) {
+	               taxPercent=0.20;
+	           }
+	           else {
+	               taxPercent=0.15;
+	           }
+	       }
+	       else
+	       {
+	           if(mstatus.equalsIgnoreCase("single")) {
+	               taxPercent=0.30;
+	           }
+	           else {
+	               taxPercent=0.25;
+	           }
+	       }
+
+	       tax=this.annualIncome*taxPercent;
+
+	   }
+	   public double getTax()
+	   {
+	       return tax;
+	   }
+
+
+	
+	//toString method which formats the output of the object
+	public String toString(String lastName, String firstName, String social, String address, String city, String state, String zip, double annualIncome, double tax){
+		String a = "Tax payer Information: \n";
+		String b = "Tax Payer Name: " +lastName + "," +firstName +"\n";
+		String c = "Social Security Number: " +social+ "\n";
+		String d = "Address: " +address+ ", " +city + ", " +state+ ", " +zip+ "\n";
+		String e = "Annual Income: $" +annualIncome+ "\n";
+		String f = "Tax Amount: $" +tax+ "\n";
+		return (a+b+c+d+e+f);
+	}
+	//main which takes in user's values
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		boolean check = true;
+		System.out.println("Please enter your first name: ");
+		String firstName = scan.nextLine();
+		System.out.println("Please enter your last name: ");
+		String lastName = scan.nextLine();
+		System.out.println("Please enter your social security number: ");
+		String social = scan.nextLine();
+		//checks for formatting of Social Security Number
+		  while(check)
+	       {
+	           System.out.println("Please enter your social security number:");
+	           social=scan.nextLine();
+	           if(social.length()==11 && social.charAt(3)=='-' &&social.charAt(6)=='-' )
+	               check=false;
+	           else
+	               System.out.println("Incorrect social security Number.");
+	       }
+				check = true;
+		
+		System.out.println("Please enter your address: ");
+		String address = scan.nextLine();
+		System.out.println("Please enter your city: ");
+		String city = scan.nextLine();
+		System.out.println("Please enter your state: ");
+		String state = scan.nextLine();
+		System.out.println("Please enter your zip code: ");
+		String zip = scan.nextLine();
+		//checks for zip code format
+		while(zip.length()!=5) {
+			System.out.println("Wrong format, try again.");
+			System.out.println("Please enter your zip code: ");
+			zip = scan.nextLine();
+		}
+		System.out.println("Please enter your marital status (single/Single/married/Married): ");
+		String mstatus = scan.nextLine();
+		String married = "married";
+		String single = "single";
+		//checks for marrital status format
+		while((mstatus.compareToIgnoreCase(single)!=0)&&(mstatus.compareToIgnoreCase(married)!=0)) {
+			System.out.println("Wrong format, try again.");
+			System.out.println("Please enter your marital status (single/Single/married/Married): ");
+			mstatus = scan.nextLine();
+		}
+		System.out.println("Please enter your annual income: ");
+		double annualIncome = scan.nextDouble();
+		//makes sure annual income isn't negative
+		while(annualIncome < 0) {
+			System.out.println("Please enter your annual income: ");
+			annualIncome = Double.parseDouble(scan.nextLine());
+		}
+		 TaxReturn taxreturn=new TaxReturn();
+	       //set values to object
+	       taxreturn.setFirstName(firstName);
+	       taxreturn.setLastName(lastName);
+	       taxreturn.setAddress(address);
+	       taxreturn.setMstatus(mstatus);
+	       taxreturn.setAnnualIncome(annualIncome);
+	       System.out.println(taxreturn.toString(lastName, firstName, social, address, city, state, zip, annualIncome, tax));
+	}
+}
