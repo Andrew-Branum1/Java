@@ -1,0 +1,152 @@
+import java.util.*;
+import java.lang.*;
+import java.text.*;
+//Creator: Drew Branum
+public class Triangle {//declares class triangle along with private ints and decimal formatting
+	private static DecimalFormat dF = new DecimalFormat("0.00");
+	private static int x1;
+
+	private static int x2;
+
+	private static int x3;
+
+	private static int y1;
+
+	private static int y2;
+
+	private static int y3;
+	
+	public static double side1;
+
+	public static double side2;
+
+	public static double side3;
+	
+	public Triangle(){//declares the default constructor for Triangle
+		x1 = 0;
+		x2 = 0;
+		x3 = 0;
+		y1 = 0;
+		y2 = 0;
+		y3 = 0;
+	
+	}
+	public Triangle(int sx1, int sx2, int sx3, int sy1, int sy2, int sy3){//sets a up a Triangle with user inputted values
+		x1 = sx1;
+		x2 = sx2;
+		x3 = sx3;
+		y1 = sy1;
+		y2 = sy2;
+		y3 = sy3;
+	
+	}
+	
+	
+	
+	
+	public double cSide1(int x1, int x2, int y1, int y2) {//method to calculate side 1
+		double xt = Math.pow((x2-x1),2);
+		double yt = Math.pow((y2-y1),2);
+		double ft = xt + yt;
+		side1 = Math.sqrt(ft);
+		return side1;
+	}
+	public double cSide2(int x3, int x2, int y3, int y2) {//method to calculate side 2
+		side2 = Math.sqrt(((Math.pow((x2-x3),2)+Math.pow((y2-y3),2))));
+		return side2;
+	}
+	public double cSide3(int x1, int x3, int y1, int y3) {//method to calculate side 3
+		side3 = Math.sqrt(((Math.pow((x3-x1),2)+Math.pow((y3-y1),2))));
+		return side3;
+	}
+	public double cPerimeter(double side1, double side2, double side3) {//method to calculate Perimeter
+		double perimeter = side1 + side2 + side3;
+		return perimeter;
+	}
+	public double cArea(double perimeter, double side1, double side2, double side3) {//method to calculate Area
+		double H = perimeter/2;
+		double A = H-side1;
+		double B = H - side2;
+		double C = H - side3;
+		double are = H*A*B*C;
+		double area = Math.sqrt(are);
+		return area;
+	}
+
+	
+	public int getX1() {//accessor method to see the x1 value
+		return x1;
+	}
+	public void setX1(int newX1) {//mutator method to change x1
+		x1 = newX1;
+	}
+	public int getX2() {//accessor method for x1
+		return x2;
+	}
+	public void setX2(int newX2) {//mutator method for x2
+		x2 = newX2;
+	}
+	public int getX3() {//accessor for x3
+		return x3;
+	}
+	public void setX3(int newX3) {//mutator for x3
+		x3 = newX3;
+	}
+	public int getY1() {//accessor for y1
+		return y1;
+	}
+	public void setY1(int newY1) {//mutator for y1
+		y1 = newY1;
+	}
+	public int getY2() {//accessor for y2
+		return y2;
+	}
+	public void setY2(int newY2) {//mutator for y2
+		y2 = newY2;
+	}
+	public int getY3() {//accessor for y3
+		return y3;
+	}
+	public void setY3(int newY3) {//mutator for y3
+		x3 = newY3;
+	}
+	public String toString(int x1, int x2, int x3, int y1, int y2, int y3, double side1, double side2, double side3, double perimeter, double area) {//toString method to display the Triangle class clearly
+		String a = "The triangle verticies are: \n";
+		String b = "Point 1: (" +x1+ "," +y1+ "), Point 2: (" +x2+ "," +y2+ "), Point 3: (" +x3+ "," +y3+ ")\n";
+		String c = "The Triangle sides are: " +dF.format(side1)+ "," +dF.format(side2)+ "," +dF.format(side3)+ "\n";
+		String d = "The Trianlge perimeter is: " +dF.format(perimeter)+ "\n";
+		String e = "The Triangle area is: " +dF.format(area)+ "\n";
+		return (a+b+c+d+e);
+	}
+
+
+	public static void main(String[] args) {//main
+	
+	Scanner scan = new Scanner(System.in);//scanner for user input
+	System.out.println("Enter the x1 coordinate of the Triangle: ");//user prompt for user input
+	int sx1 = scan.nextInt();
+	System.out.println("Enter the x2 coordinate of the Triangle: ");
+	int sx2 = scan.nextInt();
+	System.out.println("Enter the x3 coordinate of the Triangle: ");
+	int sx3 = scan.nextInt();
+	System.out.println("Enter the y1 coordinate of the Triangle: ");
+	int sy1 = scan.nextInt();
+	System.out.println("Enter the y2 coordinate of the Triangle: ");
+	int sy2 = scan.nextInt();
+	System.out.println("Enter the y3 coordinate of the Triangle: ");
+	int sy3 = scan.nextInt();
+	
+	
+	Triangle triangle = new Triangle(sx1,sx2,sx3,sy1,sy2,sy3);//calling and creation of a new triangle with the user's input
+	side1 = triangle.cSide1(x1, x2, y1, y2);//calling side1 method to calculate the side based off of the user's values
+	side2 = triangle.cSide2(x3, x2, y3, y2);//calling side2 method to calculate the side based off of the user's values
+	side3 = triangle.cSide3(x1, x3, y1, y3);//calling side3 method to calculate the side based off of the user's values
+	double perimeter = triangle.cPerimeter(side1, side2, side3);//calling perimeter method to calculate the perimeter based off of the sides' values
+	double area = triangle.cArea(perimeter, side1, side2, side3);//calling area method to calculate the side based off of the sides' values
+	
+	System.out.println(triangle.toString(x1, x2, x3, y1, y2, y3, side1, side2, side3, perimeter, area));//displaying the Triangle object neatly
+	
+	}
+}
+	
+	
